@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8">
 
-  <!-- ✅ IMPORTANT FOR MOBILE -->
+  <!-- IMPORTANT FOR MOBILE -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>My Coolo Bio</title>
+  <title>My Cool Bio</title>
 
   <style>
     body {
@@ -35,7 +35,6 @@
       100% { background-position: 0% 50%; }
     }
 
-    /* DUST PARTICLES */
     #dust {
       position: fixed;
       inset: 0;
@@ -43,7 +42,6 @@
       pointer-events: none;
     }
 
-    /* CLICK TO CONTINUE SCREEN */
     .gate {
       position: fixed;
       inset: 0;
@@ -62,9 +60,9 @@
       background: #111;
       color: white;
       font-weight: bold;
+      cursor: pointer;
     }
 
-    /* MAIN  RIZZMAS CONTENT */
     .content {
       display: none;
       width: 92%;
@@ -86,7 +84,6 @@
       margin-bottom: 12px;
     }
 
-    /* SHAMBLES PHOTO STUFF */ 
     .song-img {
       width: 100%;
       border-radius: 18px;
@@ -115,6 +112,7 @@
       border-radius: 14px;
       font-weight: bold;
       font-size: 1.05rem;
+      cursor: pointer;
     }
 
     .bio-card {
@@ -156,15 +154,8 @@
       font-size: 1.05rem;
     }
 
-    #player { display: none; }
-
-    @media (max-width: 480px) {
-      h1 { font-size: 2rem; }
-      .bio-card { font-size: 1rem; }
-      .gate button {
-        font-size: 1.5rem;
-        padding: 20px 36px;
-      }
+    #player {
+      display: none;
     }
   </style>
 </head>
@@ -192,17 +183,17 @@
 
   <div class="platforms" id="platforms">
     <strong>What Platform Would You Like To Hear This From?</strong>
-    <a href="https://open.spotify.com/track/58ge6dfP91o9oXMzq3XkIS?si=0eb5bb3f45664804" target="_blank">Click Here To Listen To On Spotify</a>
-    <a href="https://youtu.be/MrmPDUvKyLs?si=NduRdrbOma6ILhAX" target="_blank">Click Here To Listen To On YouTube</a>
+    <a href="https://open.spotify.com/track/58ge6dfP91o9oXMzq3XkIS" target="_blank">Listen on Spotify</a>
+    <a href="https://youtu.be/MrmPDUvKyLs" target="_blank">Listen on YouTube</a>
   </div>
 
   <div class="bio-card">
     <strong>Welcome To Tables Tuff Bio!</strong><br><br>
-    <ul class="bio-list">
-      <li> < 14 year old > </li>
-      <li> < APK METHOD DEV > < /li>
-      <li> < .gg/novatag > </li>
-      <li> < touhou on top > </li>
+    <ul>
+      <li>&lt; 14 year old &gt;</li>
+      <li>&lt; APK METHOD DEV &gt;</li>
+      <li>&lt; .gg/novatag &gt;</li>
+      <li>&lt; touhou on top &gt;</li>
     </ul>
   </div>
 
@@ -213,8 +204,8 @@
 
   <div class="links">
     <a href="https://discord.gg/Z7UqgEyh9e" target="_blank">Join My Games Discord</a>
-    <a href="https://www.tiktok.com/@_.desk" target="_blank">Follow My Tuff TikTok Account</a>
-    <a href="https://www.meta.com/experiences/app/9787130994744207" target="_blank">Make Sure To Download My Game!!</a>
+    <a href="https://www.tiktok.com/@tableisinhisprime?_r=1&_t=ZP-93osDWu8LLr" target="_blank">Follow My TikTok</a>
+    <a href="No Download Yet" target="_blank">Download My Game</a>
   </div>
 </div>
 
@@ -222,42 +213,59 @@
 <script src="https://www.youtube.com/iframe_api"></script>
 
 <script>
-let player, volume = 0;
+let player;
+let playerReady = false;
+let volume = 0;
 
-/* THIS IS FOR THE TUFF MUSIC BOII */
+/* YouTube Player */
 function onYouTubeIframeAPIReady() {
   player = new YT.Player('player', {
-    videoId: 'NduRdrbOma6ILhAX',
-    playerVars: { autoplay: 0, loop: 1, playlist: 'LwIvSZ4DT4E', controls: 0 },
-    events: { onReady: () => player.setVolume(0) }
+    videoId: 'MrmPDUvKyLs',
+    playerVars: {
+      autoplay: 0,
+      loop: 1,
+      playlist: 'MrmPDUvKyLs',
+      controls: 0
+    },
+    events: {
+      onReady: () => {
+        playerReady = true;
+        player.setVolume(0);
+      }
+    }
   });
 }
 
 function fadeInMusic() {
+  volume = 0;
   const fade = setInterval(() => {
-    if (volume >= 50) clearInterval(fade);
-    else player.setVolume(++volume);
+    if (volume >= 50 || !playerReady) return clearInterval(fade);
+    player.setVolume(++volume);
   }, 80);
 }
 
 function enterSite() {
   document.body.classList.add("active");
   document.getElementById("gate").style.display = "none";
+
   setTimeout(() => {
     document.getElementById("content").style.display = "block";
-    player.playVideo();
-    fadeInMusic();
+    if (playerReady) {
+      player.playVideo();
+      fadeInMusic();
+    }
   }, 600);
 }
 
 function showSongContinue() {
   document.getElementById("songContinue").style.display = "block";
 }
+
 function showPlatforms() {
   document.getElementById("platforms").style.display = "block";
 }
 
-/* 🌫️ DUST (MORE PARTICLES, STILL SUBTLE) */
+/* Dust Effect */
 const canvas = document.getElementById("dust");
 const ctx = canvas.getContext("2d");
 let w, h, particles = [];
