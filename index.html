@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+
+  <!-- ✅ IMPORTANT FOR MOBILE -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>My Coolo Bio</title>
+
+  <style>
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: black;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: Arial, sans-serif;
+      color: white;
+      overflow-x: hidden;
+      transition: background 1.5s ease;
+      position: relative;
+    }
+
+    body.active {
+      background: linear-gradient(135deg, #e7181f, #cb345a);
+      background-size: 400% 400%;
+      animation: gradientMove 10s ease infinite;
+    }
+
+    @keyframes gradientMove {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    /* DUST PARTICLES */
+    #dust {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    /* CLICK TO CONTINUE SCREEN */
+    .gate {
+      position: fixed;
+      inset: 0;
+      background: black;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 10;
+    }
+
+    .gate button {
+      font-size: 1.4rem;
+      padding: 18px 32px;
+      border-radius: 20px;
+      border: none;
+      background: #111;
+      color: white;
+      font-weight: bold;
+    }
+
+    /* MAIN  RIZZMAS CONTENT */
+    .content {
+      display: none;
+      width: 92%;
+      max-width: 460px;
+      text-align: center;
+      opacity: 0;
+      animation: fadeIn 1.2s ease forwards;
+      animation-delay: 0.6s;
+      position: relative;
+      z-index: 1;
+    }
+
+    @keyframes fadeIn {
+      to { opacity: 1; }
+    }
+
+    h1 {
+      font-size: 1.8rem;
+      margin-bottom: 12px;
+    }
+
+    /* SHAMBLES PHOTO STUFF */ 
+    .song-img {
+      width: 100%;
+      border-radius: 18px;
+      margin-bottom: 12px;
+      cursor: pointer;
+    }
+
+    .song-continue,
+    .platforms {
+      display: none;
+      background: black;
+      padding: 16px;
+      border-radius: 16px;
+      margin-bottom: 16px;
+      font-size: 1rem;
+    }
+
+    .song-continue button,
+    .platforms a {
+      display: block;
+      margin-top: 12px;
+      padding: 14px;
+      background: #cb345a;
+      color: white;
+      text-decoration: none;
+      border-radius: 14px;
+      font-weight: bold;
+      font-size: 1.05rem;
+    }
+
+    .bio-card {
+      background: black;
+      padding: 20px;
+      border-radius: 20px;
+      margin-bottom: 18px;
+      text-align: left;
+      font-size: 0.95rem;
+      line-height: 1.55;
+    }
+
+    .section-title {
+      text-align: left;
+      font-weight: bold;
+      margin-bottom: 6px;
+      font-size: 0.95rem;
+    }
+
+    .friends-box {
+      background: black;
+      border-radius: 16px;
+      padding: 14px;
+      font-size: 0.9rem;
+      line-height: 1.5;
+      margin-bottom: 18px;
+      text-align: left;
+    }
+
+    .links a {
+      display: block;
+      background: black;
+      margin: 10px 0;
+      padding: 14px;
+      border-radius: 14px;
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 1.05rem;
+    }
+
+    #player { display: none; }
+
+    @media (max-width: 480px) {
+      h1 { font-size: 2rem; }
+      .bio-card { font-size: 1rem; }
+      .gate button {
+        font-size: 1.5rem;
+        padding: 20px 36px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<canvas id="dust"></canvas>
+
+<div class="gate" id="gate">
+  <button onclick="enterSite()">Click to Continue</button>
+</div>
+
+<div class="content" id="content">
+  <h1>My Bio</h1>
+
+  <img
+    src="https://image2url.com/r2/default/images/1770772827575-7fca7bf6-0a9c-4f44-96a1-a95fbf9b327e.webp"
+    class="song-img"
+    onclick="showSongContinue()"
+  >
+
+  <div class="song-continue" id="songContinue">
+    <button onclick="showPlatforms()">Click To Continue</button>
+  </div>
+
+  <div class="platforms" id="platforms">
+    <strong>What Platform Would You Like To Hear This From?</strong>
+    <a href="https://open.spotify.com/track/58ge6dfP91o9oXMzq3XkIS?si=0eb5bb3f45664804" target="_blank">Click Here To Listen To On Spotify</a>
+    <a href="https://youtu.be/MrmPDUvKyLs?si=NduRdrbOma6ILhAX" target="_blank">Click Here To Listen To On YouTube</a>
+  </div>
+
+  <div class="bio-card">
+    <strong>Welcome To Tables Tuff Bio!</strong><br><br>
+    <ul class="bio-list">
+      <li> < 14 year old > </li>
+      <li> < APK METHOD DEV >< /li>
+      <li> < .gg/novatag > </li>
+      <li> < touhou on top > </li>
+    </ul>
+  </div>
+
+  <div class="section-title">friends</div>
+  <div class="friends-box">
+    desk, bxt, shawn, chair, wind, g4, kenza, jerffert epstine
+  </div>
+
+  <div class="links">
+    <a href="https://discord.gg/Z7UqgEyh9e" target="_blank">Join My Games Discord</a>
+    <a href="https://www.tiktok.com/@_.desk" target="_blank">Follow My Tuff TikTok Account</a>
+    <a href="https://www.meta.com/experiences/app/9787130994744207" target="_blank">Make Sure To Download My Game!!</a>
+  </div>
+</div>
+
+<div id="player"></div>
+<script src="https://www.youtube.com/iframe_api"></script>
+
+<script>
+let player, volume = 0;
+
+/* THIS IS FOR THE TUFF MUSIC BOII */
+function onYouTubeIframeAPIReady() {
+  player = new YT.Player('player', {
+    videoId: 'NduRdrbOma6ILhAX',
+    playerVars: { autoplay: 0, loop: 1, playlist: 'LwIvSZ4DT4E', controls: 0 },
+    events: { onReady: () => player.setVolume(0) }
+  });
+}
+
+function fadeInMusic() {
+  const fade = setInterval(() => {
+    if (volume >= 50) clearInterval(fade);
+    else player.setVolume(++volume);
+  }, 80);
+}
+
+function enterSite() {
+  document.body.classList.add("active");
+  document.getElementById("gate").style.display = "none";
+  setTimeout(() => {
+    document.getElementById("content").style.display = "block";
+    player.playVideo();
+    fadeInMusic();
+  }, 600);
+}
+
+function showSongContinue() {
+  document.getElementById("songContinue").style.display = "block";
+}
+function showPlatforms() {
+  document.getElementById("platforms").style.display = "block";
+}
+
+/* 🌫️ DUST (MORE PARTICLES, STILL SUBTLE) */
+const canvas = document.getElementById("dust");
+const ctx = canvas.getContext("2d");
+let w, h, particles = [];
+
+function resize() {
+  w = canvas.width = window.innerWidth;
+  h = canvas.height = window.innerHeight;
+}
+window.addEventListener("resize", resize);
+resize();
+
+for (let i = 0; i < 260; i++) {
+  particles.push({
+    x: Math.random() * w,
+    y: Math.random() * h,
+    r: Math.random() * 1.6,
+    dx: (Math.random() - 0.5) * 0.25,
+    dy: Math.random() * 0.35,
+    a: Math.random() * 0.06
+  });
+}
+
+function drawDust() {
+  ctx.clearRect(0, 0, w, h);
+  particles.forEach(p => {
+    ctx.beginPath();
+    ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+    ctx.fillStyle = `rgba(255,255,255,${p.a})`;
+    ctx.fill();
+    p.x += p.dx;
+    p.y += p.dy;
+    if (p.y > h) p.y = 0;
+    if (p.x < 0) p.x = w;
+    if (p.x > w) p.x = 0;
+  });
+  requestAnimationFrame(drawDust);
+}
+drawDust();
+</script>
+
+</body>
+</html>
